@@ -1,0 +1,58 @@
+@CHARSET "UTF-8";
+
+@import url("base.css");
+
+body {
+	MARGIN: 0;
+	background: #f3f3f3;
+	padding: 0;
+}
+
+.content {
+	width: 1000px;
+	margin: auto;
+	background: #FFF;
+	height: calc(100vh - 80px);
+	overflow: auto;
+}
+
+.content div {
+	width: 350px;
+	margin-left: 25%;
+	margin-right: 30%;
+	position: relative; 
+	top: 5px;
+	text-align: center;
+}
+
+.form-field {
+	background: #ffffff;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	color: #000000;
+	-webkit-box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset
+		rgba(000, 000, 000, 0.7) 0 0px 0px;
+	-moz-box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset
+		rgba(000, 000, 000, 0.7) 0 0px 0px;
+	box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset
+		rgba(000, 000, 000, 0.7) 0 0px 0px;
+	padding: 8px;
+	margin-bottom: 20px;
+	width: 300px;
+	padding-right: 50px;
+}
+
+.form-field:focus {
+	background: #fff;
+	color: #000000;
+}
+
+.Cbutton {
+	margin-top: 10%;
+	margin-left: 40%;
+	text-align: center;
+	color: #3a8a9e;
+	font-family: Arial;
+	font-size: 25px;
+}

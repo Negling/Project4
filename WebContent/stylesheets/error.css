@@ -1,0 +1,45 @@
+@CHARSET "UTF-8";
+
+@import url("base.css");
+
+body {
+	background: #FFF;
+	MARGIN: 0;
+	padding: 0;
+}
+
+#div {
+	height: 10em;
+	line-height: 5em;
+	text-align: center;
+	margin-top: 5%;
+}
+
+#div img {
+	vertical-align: middle;
+}
+
+.text {
+	color: #666666;
+	font-size: 20px;
+	margin-top: 9px;
+}
+
+.mainPage {
+	position: absolute;
+	top: 25px;
+	left: 20px;
+}
+
+.home {
+	background: #71a2b9;
+	background-repeat: no-repeat;
+	padding-left: 35px;
+	height: 33px;
+	color: #F0FFF0;
+	font-family: Arial;
+	font-size: 25px;
+	background-image: url("../images/home.png");
+	border: 0;
+    background:transparent.
+}

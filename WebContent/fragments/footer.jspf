@@ -1,0 +1,5 @@
+<div class="footer">
+	<%@include file="/fragments/home.jspf"%>
+</div>
+</body>
+</html>

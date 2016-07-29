@@ -1,0 +1,35 @@
+@CHARSET "UTF-8";
+
+@import url("base.css");
+
+body {
+	MARGIN: 0;
+	background: #f3f3f3;
+	padding: 0;
+}
+
+.content {
+	width: 1000px;
+	margin: auto;
+	background: #FFF;
+	height: calc(100vh - 80px);
+	overflow: auto;
+}
+
+.reg-login {
+	width: 60%;
+	margin: auto;
+	margin-top: 2em;
+}
+
+.reg-login>div {
+	float: left;
+	width: 32%;
+	text-align: center;
+}
+
+.text {
+	color: #666666;
+	font-size: 20px;
+	margin-top: 9px;
+}

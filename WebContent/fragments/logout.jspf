@@ -1,0 +1,16 @@
+<div class="logout">
+	<form action="/Project4/controller" method="post">
+		<input type="hidden" name="command" value="logout" />
+		<c:choose>
+			<c:when test="${not empty sessionScope.logged}">
+				<fmt:message key="greetingsMSG" />
+				${sessionScope.login}!</c:when>
+			<c:otherwise>
+				<fmt:message key="greetingsMSG" />
+				<fmt:message key="anonym" />!</c:otherwise>
+		</c:choose>
+		<input class="button"
+			type="${not empty sessionScope.logged ? 'submit':'hidden'}"
+			value="<fmt:message key="logoutBTN" />" />
+	</form>
+</div>

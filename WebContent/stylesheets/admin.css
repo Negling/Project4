@@ -1,0 +1,25 @@
+@CHARSET "UTF-8";
+
+@import url("base.css");
+
+.content div {
+	width: 750px;
+	margin-left: 10%;
+	margin-right: 30%;
+	position: relative; 
+	top: 20px;
+	text-align: left;
+	font-family: Arial;
+	font-size: 18px;
+}
+
+.content button{
+	width: 100px;
+	color: #71a2b9;
+	font-family: Arial;
+	font-size: 12px;
+}
+
+.details {
+	margin-top: 15px;
+}

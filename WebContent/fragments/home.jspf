@@ -1,0 +1,9 @@
+<%@ page language="java" contentType="text/html; UTF-8"
+	pageEncoding="UTF-8"%>
+<div class="mainPage">
+	<form action="/Project4/index.jsp" method="post">
+		<button class="home">
+			<fmt:message key="toMainBTN" />
+		</button>
+	</form>
+</div>

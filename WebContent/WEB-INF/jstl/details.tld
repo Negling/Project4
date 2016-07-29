@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<taglib version="2.1" xmlns="http://java.sun.com/xml/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_1.xsd">
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>2.0</jsp-version>
+	<short-name>t</short-name>
+	<tag>
+		<name>details</name>
+		<tag-class>ua.kiral.project4.view.jstl.DetailsTable</tag-class>
+		<body-content>empty</body-content>
+		<info>details tag builds a table of order-details with product name,
+			and amount specified to current order
+		</info>
+		<attribute>
+			<name>products</name>
+			<required>true</required>
+			<description>Provide a value of order products list names
+			</description>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>details</name>
+			<required>true</required>
+			<description>Provide a value of order product amount</description>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>asTable</name>
+			<required>true</required>
+			<description>Specifies format of result string, if ur going to use
+				this tag within table tag - set this attribute as true and false
+				otherwise
+			</description>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+</taglib>
