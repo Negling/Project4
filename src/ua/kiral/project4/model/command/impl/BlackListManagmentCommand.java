@@ -35,6 +35,7 @@ public class BlackListManagmentCommand extends Command {
 			String banLogin = container.getParameter(getKey("banLogin"));
 			String unbanLogin = container.getParameter(getKey("unbanLogin"));
 			User currentUser = userDao.getByLogin(banLogin == null ? unbanLogin : banLogin);
+			boolean status = banLogin == null ? false : true;
 			List<User> users;
 
 			/*
@@ -47,20 +48,13 @@ public class BlackListManagmentCommand extends Command {
 			users = (List<User>) session.getAttribute(getKey("usersList"));
 
 			/*
-			 * if unban value is null - than user is need to be banned,
-			 * otherwise perform unblock case.
+			 * if operation is success - return to managmatn page
 			 */
-			if (unbanLogin == null) {
-				if (updateStatus(userDao, currentUser, users, true))
-					return getKey("adminPath");
-				else
-					return getKey("errorPath");
-			} else {
-				if (updateStatus(userDao, currentUser, users, false))
-					return getKey("adminPath");
-				else
-					return getKey("errorPath");
-			}
+			if (updateStatus(userDao, currentUser, users, status))
+				return getKey("adminPath");
+			else
+				return getKey("errorPath");
+			
 		} catch (DAOException ex) {
 			logger.error("DAO exception due invoking BlackListManagmentCommand", ex);
 			return getKey("errorPath");
@@ -68,7 +62,7 @@ public class BlackListManagmentCommand extends Command {
 	}
 
 	/**
-	 * This methid performs status update in database and session storage.
+	 * This method performs status update in database and session storage.
 	 * 
 	 * @param dao
 	 *            - dao interface to perform update operation

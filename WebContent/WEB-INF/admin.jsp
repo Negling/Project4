@@ -148,6 +148,51 @@
 					</table>
 				</form>
 			</details>
+			<details class="details">
+				<summary>
+					<fmt:message key="manageOrders" />
+				</summary>
+				<c:choose>
+					<c:when test="${not empty requestScope.noOrders }">
+						<fmt:message key="noNewOrdersMSG" />
+					</c:when>
+					<c:otherwise>
+						<form action="/Project4/controller" method="post">
+							<input type="hidden" name="command" value="ordersM" />
+							<table border="1">
+								<tr>
+									<td align="center" width="100"><fmt:message key="orderID" /></td>
+									<td align="center" width="100"><fmt:message
+											key="orderDate" /></td>
+									<td align="center" width="150"><fmt:message
+											key="totalCost" /></td>
+									<td align="center" width="100"><fmt:message
+											key="orderStatus" /></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<c:forEach items="${sessionScope.orders}" var="order">
+									<tr>
+										<td align="center" width="100">${order.orderId}</td>
+										<td align="center" width="100">${order.orderDate}</td>
+										<td align="center" width="150">${order.totalCost}</td>
+										<td align="center" width="100">${order.status}</td>
+										<td align="center" width="100"><button name="oConfirm"
+												value="${order.orderId}">
+												<fmt:message key="confirmOrderBTN" />
+											</button></td>
+										<td align="center" width="100"><button name="oReject"
+												value="${order.orderId}">
+												<fmt:message key="rejectOrderBTN" />
+											</button></td>
+									</tr>
+								</c:forEach>
+							</table>
+						</form>
+					</c:otherwise>
+				</c:choose>
+
+			</details>
 		</div>
 	</div>
 <%@include file="/fragments/footer.jspf"%>

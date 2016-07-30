@@ -11,10 +11,12 @@ import ua.kiral.project4.controller.request.RequestContainer;
 import ua.kiral.project4.model.command.Command;
 import ua.kiral.project4.model.command.validator.Validator;
 import ua.kiral.project4.model.dao.DAOFactory;
+import ua.kiral.project4.model.dao.OrderDAO;
 import ua.kiral.project4.model.dao.ProductDAO;
 import ua.kiral.project4.model.dao.UserDAO;
 import ua.kiral.project4.model.dao.exceptions.DAOException;
 import ua.kiral.project4.model.entity.Bucket;
+import ua.kiral.project4.model.entity.Order;
 import ua.kiral.project4.model.entity.Product;
 import ua.kiral.project4.model.entity.User;
 
@@ -39,7 +41,9 @@ public class LoginCommand extends Command {
 			HttpSession session = container.getSession(true);
 			Boolean online = (Boolean) session.getAttribute(getKey("userOnline"));
 			ProductDAO productDAO = DAOfactory.getProductDAO();
-			UserDAO userDao = DAOfactory.getUserDAO();
+			UserDAO userDAO = DAOfactory.getUserDAO();
+			OrderDAO orderDAO = DAOfactory.getOrderDAO();
+			List<Product> products = productDAO.getAll();
 			String login = container.getParameter(getKey("userLogin"));
 			String password = container.getParameter(getKey("userPass"));
 
@@ -48,10 +52,13 @@ public class LoginCommand extends Command {
 			 */
 			if (online != null && online) {
 				if (session.getAttribute(getKey("userLogin")).equals(getKey("adminLogin"))) {
-					prepareAdminPage(session, userDao.getAll(), productDAO.getAll());
+
+					prepareAdminPage(container, session, userDAO.getAll(), products,
+							orderDAO.getAllByStatus(getKey("newOrderStatus")));
+
 					return getKey("adminPath");
 				} else {
-					prepareUserPage(session, productDAO.getAll());
+					prepareUserPage(session, products);
 					return getKey("contentPath");
 				}
 			}
@@ -62,7 +69,7 @@ public class LoginCommand extends Command {
 				return getKey("loginPath");
 			}
 
-			User currentUser = userDao.getByLogin(login);
+			User currentUser = userDAO.getByLogin(login);
 
 			if (currentUser != null) { // current user exist
 
@@ -83,12 +90,14 @@ public class LoginCommand extends Command {
 					if (currentUser.getLogin().equals(getKey("adminLogin"))) {
 
 						// if admin, prepear data for admin page
-						prepareAdminPage(session, userDao.getAll(), productDAO.getAll());
+						prepareAdminPage(container, session, userDAO.getAll(), products,
+								orderDAO.getAllByStatus(getKey("newOrderStatus")));
+
 						return getKey("adminPath");
 					} else {
 
 						// otherwise prepear data for user
-						prepareUserPage(session, productDAO.getAll());
+						prepareUserPage(session, products);
 						session.setAttribute(getKey("purchaseBucket"), new Bucket());
 						return getKey("contentPath");
 					}
@@ -109,15 +118,21 @@ public class LoginCommand extends Command {
 	}
 
 	/**
-	 * Same as regular user, but has additional container for customers info.
+	 * Same as regular user, but has additional containers for customers info.
 	 * 
 	 * @param session
 	 * @param users
 	 * @param products
 	 */
-	private void prepareAdminPage(HttpSession session, List<User> users, List<Product> products) {
+	private void prepareAdminPage(RequestContainer container, HttpSession session, List<User> users,
+			List<Product> products, List<Order> orders) {
 		prepareUserPage(session, products);
 		session.setAttribute(getKey("usersList"), users);
+
+		if (orders == null || orders.isEmpty())
+			container.setAttribute(getKey("emptyOrderList"), true);
+		else
+			session.setAttribute(getKey("ordersList"), orders);
 	}
 
 	/**
