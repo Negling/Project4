@@ -16,14 +16,13 @@ import ua.kiral.project4.mock.dao.MockDAOFactory;
 import ua.kiral.project4.mock.request.MockRequestContainer;
 import ua.kiral.project4.mock.validator.MockValidator;
 import ua.kiral.project4.model.command.impl.LocaleChangeCommand;
-import ua.kiral.project4.model.dao.exceptions.DAOException;
 
 public class LocaleChangeTest {
 	private static MockRequestContainer container;
 	private static LocaleChangeCommand command;
 
 	@BeforeClass
-	public static void beforeClass() throws DAOException {
+	public static void beforeClass() {
 		container = new MockRequestContainer(new HashMap<>(), new HashMap<>(), null);
 		command = new LocaleChangeCommand(MockDAOFactory.getInstance(), new MockValidator());
 	}
@@ -42,11 +41,15 @@ public class LocaleChangeTest {
 	}
 	
 	@Test
-	public void changeValueTest(){
+	public void changeValueTest() {
 		container.setParameter(getKey("locale"), "RU");
-		HttpSession ses = container.getSession(false);
+		HttpSession ses = container.getSession();
 		ses.setAttribute(getKey("locale"), "EN");
 		
+		/*
+		 * session contains EN locale value, after executing command it must
+		 * appear as RU value
+		 */
 		assertTrue(command.execute(container).equals(getKey("mainPage")));
 		assertTrue(ses.getAttribute(getKey("locale")).equals("RU"));
 	}
@@ -54,9 +57,13 @@ public class LocaleChangeTest {
 	@Test
 	public void consistentValueTest(){
 		container.setParameter(getKey("locale"), "EN");
-		HttpSession ses = container.getSession(false);
+		HttpSession ses = container.getSession();
 		ses.setAttribute(getKey("locale"), "EN");
 		
+		/*
+		 * session contains RU locale value, after executing command it must
+		 * appear as EN value
+		 */
 		assertTrue(command.execute(container).equals(getKey("mainPage")));
 		assertTrue(ses.getAttribute(getKey("locale")).equals("EN"));
 	}

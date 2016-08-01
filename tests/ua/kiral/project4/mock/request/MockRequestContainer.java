@@ -43,6 +43,10 @@ public class MockRequestContainer implements RequestContainer {
 			return null;
 	}
 
+	public HttpSession getSession() {
+		return getSession(true);
+	}
+
 	@Override
 	public void setAttribute(String arg0, Object arg1) {
 		requestAttributes.put(arg0, arg1);

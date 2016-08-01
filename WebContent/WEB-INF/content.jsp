@@ -76,7 +76,8 @@
 			<details>
 				<c:set var="bucket" value="${sessionScope.bucket}" />
 				<summary>
-					<fmt:message key="bucket" />:
+					<fmt:message key="bucket" />
+					:
 					<fmt:message key="cost" />
 					: ${bucket.totalCost}
 					<fmt:message key="products" />
@@ -89,8 +90,7 @@
 						<c:forEach var="pd" items="${bucket.bucket}">
 							<tr>
 								<td align="right" width="100"><fmt:message key="productId" />:
-									${pd.key}
-								<td />
+									${pd.key}</td>
 								<td align="right" width="100"><fmt:message key="amount" />:
 									${pd.value}</td>
 								<td align="right" width="100">
@@ -98,7 +98,7 @@
 										class="bucket-button">
 										<fmt:message key="removeBTN" />
 									</button>
-								<td />
+								</td>
 							</tr>
 						</c:forEach>
 					</table>

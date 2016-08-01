@@ -21,7 +21,6 @@ import ua.kiral.project4.mock.dao.MockDAOFactory;
 import ua.kiral.project4.mock.request.MockRequestContainer;
 import ua.kiral.project4.mock.validator.MockValidator;
 import ua.kiral.project4.model.command.impl.UpdateProductCommand;
-import ua.kiral.project4.model.dao.exceptions.DAOException;
 import ua.kiral.project4.model.entity.Product;
 
 public class UpdateProductTest {	
@@ -29,7 +28,7 @@ public class UpdateProductTest {
 	private static UpdateProductCommand command;
 	
 	@BeforeClass
-	public static void beforeClass() throws DAOException {
+	public static void beforeClass() {
 		container = new MockRequestContainer(new HashMap<>(), new HashMap<>(), null);
 		command = new UpdateProductCommand(MockDAOFactory.getInstance(), new MockValidator());
 	}
@@ -50,6 +49,9 @@ public class UpdateProductTest {
 	public void nullSessionTest() {
 		container.setNullSession(true);
 
+		/*
+		 * with no session during this command executing must fail
+		 */
 		assertEquals(getKey("errorPath"), command.execute(container));
 
 		container.setNullSession(false);
@@ -57,35 +59,45 @@ public class UpdateProductTest {
 	
 	@Test
 	public void nullProductsListTest(){
-		HttpSession ses = container.getSession(false);
-		
-		ses.setAttribute(getKey("productsList"), null);
 		container.setParameter(getKey("productCoreUpdateId"), "1");
 		
+		/*
+		 * without products list in session container, error path expected
+		 */
 		assertEquals(getKey("errorPath"), command.execute(container));
 	}
 	
 	@Test
-	public void nullProductTest(){
-		HttpSession ses = container.getSession(false);
+	public void nullProductTest() {
+		HttpSession ses = container.getSession();
 		List<Product> products = new ArrayList<>();
-		
+
 		products.add(new Product());
 		ses.setAttribute(getKey("productsList"), products);
 		container.setParameter(getKey("productCoreUpdateId"), "0");
-		
+
+		/*
+		 * with "0" productId param DAo mock will return null walue, error path
+		 * expected
+		 */
+
 		assertEquals(getKey("errorPath"), command.execute(container));
 	}
 	
 	@Test
-	public void succesTest(){
-		HttpSession ses = container.getSession(false);
+	public void succesTest() {
+		HttpSession ses = container.getSession();
 		List<Product> products = new ArrayList<>();
-		
+
 		products.add(new Product(1, "mock", new BigDecimal("0.00")));
 		ses.setAttribute(getKey("productsList"), products);
 		container.setParameter(getKey("productCoreUpdateId"), "1");
 		container.setParameter(getKey("productToUpdatePrice"), "0.00");
+
+		/*
+		 * with "1" productId param DAO mock will return correct product
+		 * instance, succesfull update expected.
+		 */
 
 		assertEquals(getKey("adminPath"), command.execute(container));
 

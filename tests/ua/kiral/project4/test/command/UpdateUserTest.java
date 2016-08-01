@@ -18,7 +18,6 @@ import ua.kiral.project4.mock.dao.MockDAOFactory;
 import ua.kiral.project4.mock.request.MockRequestContainer;
 import ua.kiral.project4.mock.validator.MockValidator;
 import ua.kiral.project4.model.command.impl.UpdateUserCommand;
-import ua.kiral.project4.model.dao.exceptions.DAOException;
 import ua.kiral.project4.model.entity.User;
 
 public class UpdateUserTest {
@@ -26,7 +25,7 @@ public class UpdateUserTest {
 	private static UpdateUserCommand command;
 
 	@BeforeClass
-	public static void beforeClass() throws DAOException {
+	public static void beforeClass() {
 		container = new MockRequestContainer(new HashMap<>(), new HashMap<>(), null);
 		command = new UpdateUserCommand(MockDAOFactory.getInstance(), new MockValidator());
 	}
@@ -47,39 +46,53 @@ public class UpdateUserTest {
 	public void nullSessionTest() {
 		container.setNullSession(true);
 
+		/*
+		 * with no session during this command executing must fail
+		 */
 		assertEquals(getKey("errorPath"), command.execute(container));
 
 		container.setNullSession(false);
 	}
-	
+
 	@Test
-	public void nullUsersListTest(){
-		HttpSession ses = container.getSession(false);
-		ses.setAttribute(getKey("usersList"), null);
+	public void nullUsersListTest() {
 		container.setParameter(getKey("userCoreUpdateLogin"), "mock");
-		
+
+		/*
+		 * with no users list in the session container error path expected
+		 */
 		assertEquals(getKey("errorPath"), command.execute(container));
 	}
-	
+
 	@Test
-	public void nullUserTest(){
-		HttpSession ses = container.getSession(false);
+	public void nullUserTest() {
+		HttpSession ses = container.getSession();
 		List<User> users = new ArrayList<>();
 		users.add(new User());
 		ses.setAttribute(getKey("usersList"), users);
 		container.setParameter(getKey("userCoreUpdateLogin"), "null");
-		
+
+		/*
+		 * with "null" login parammock will return null value, according to this
+		 * error path expected
+		 */
+
 		assertEquals(getKey("errorPath"), command.execute(container));
 	}
-	
+
 	@Test
 	public void succesTest() {
-		HttpSession ses = container.getSession(false);
+		HttpSession ses = container.getSession();
 		List<User> users = new ArrayList<>();
 		User user = new User(1, "", "", "mock", "", "", false, false);
 		users.add(user);
 		ses.setAttribute(getKey("usersList"), users);
 		container.setParameter(getKey("userCoreUpdateLogin"), "mock");
+
+		/*
+		 * with "mock" login value DAO mock will return correct value, success
+		 * update expected
+		 */
 
 		assertEquals(getKey("adminPath"), command.execute(container));
 

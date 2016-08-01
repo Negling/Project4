@@ -17,14 +17,13 @@ import ua.kiral.project4.mock.dao.MockDAOFactory;
 import ua.kiral.project4.mock.request.MockRequestContainer;
 import ua.kiral.project4.mock.validator.MockValidator;
 import ua.kiral.project4.model.command.impl.ShowOrdersCommand;
-import ua.kiral.project4.model.dao.exceptions.DAOException;
 
 public class ShowOrdersTest {
 	private static MockRequestContainer container;
 	private static ShowOrdersCommand command;
 
 	@BeforeClass
-	public static void beforeClass() throws DAOException {
+	public static void beforeClass() {
 		container = new MockRequestContainer(null, new HashMap<>(), new HashMap<>());
 		command = new ShowOrdersCommand(MockDAOFactory.getInstance(), new MockValidator());
 	}
@@ -45,23 +44,36 @@ public class ShowOrdersTest {
 	public void nullSessionTest() {
 		container.setNullSession(true);
 
+		/*
+		 * with no session during this command executing must fail
+		 */
 		assertEquals(getKey("errorPath"), command.execute(container));
 
 		container.setNullSession(false);
 	}
 
 	@Test
-	public void blockedByConsideringTest() {
-		HttpSession ses = container.getSession(false);
+	public void blockedDuringConsiderTest() {
+		HttpSession ses = container.getSession();
 		ses.setAttribute(getKey("userId"), 0);
+
+		/*
+		 * with this param mock will return user with blocked status, based on
+		 * this, command must return mainPage path
+		 */
 
 		assertTrue(command.execute(container).equals(getKey("mainPage")));
 	}
 
 	@Test
 	public void emtyHistoryTest() {
-		HttpSession ses = container.getSession(false);
+		HttpSession ses = container.getSession();
 		ses.setAttribute(getKey("userId"), -1);
+
+		/*
+		 * with "-1" userId param mock will return null orders list, msg and
+		 * orders path expected
+		 */
 
 		assertTrue(command.execute(container).equals(getKey("ordersPath")));
 		assertTrue(container.getAttribute(getKey("emptyOrderList")) != null);
@@ -69,11 +81,17 @@ public class ShowOrdersTest {
 
 	@Test
 	public void successTest() {
-		HttpSession ses = container.getSession(false);
+		HttpSession ses = container.getSession();
 		ses.setAttribute(getKey("userId"), 1);
+
+		/*
+		 * with "1" userid param mock will return notEmpty order list, orders,
+		 * orderDetails, products list expected.
+		 */
 
 		assertTrue(command.execute(container).equals(getKey("ordersPath")));
 		assertTrue(ses.getAttribute(getKey("ordersList")) != null);
 		assertTrue(ses.getAttribute(getKey("orderDetailsList")) != null);
+		assertTrue(ses.getAttribute(getKey("productDetailsList")) != null);
 	}
 }

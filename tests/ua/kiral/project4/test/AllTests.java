@@ -5,10 +5,12 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import ua.kiral.project4.test.command.AddProductTest;
+import ua.kiral.project4.test.command.AddProductToBucketTest;
 import ua.kiral.project4.test.command.BlackListManagmentTest;
 import ua.kiral.project4.test.command.DeleteProductTest;
 import ua.kiral.project4.test.command.LocaleChangeTest;
 import ua.kiral.project4.test.command.LoginTest;
+import ua.kiral.project4.test.command.OrderManagmentTest;
 import ua.kiral.project4.test.command.PurchaseTest;
 import ua.kiral.project4.test.command.RegistrationTest;
 import ua.kiral.project4.test.command.RemoveFromBucketTest;
@@ -20,7 +22,8 @@ import ua.kiral.project4.test.command.validator.DataValidatorTest;
 @RunWith(Suite.class)
 @SuiteClasses({ AddProductTest.class, DeleteProductTest.class, LocaleChangeTest.class, LoginTest.class,
 		PurchaseTest.class, RegistrationTest.class, ShowOrdersTest.class, UpdateProductTest.class, UpdateUserTest.class,
-		AddProductTest.class, RemoveFromBucketTest.class, BlackListManagmentTest.class, DataValidatorTest.class })
+		AddProductToBucketTest.class, RemoveFromBucketTest.class, BlackListManagmentTest.class, OrderManagmentTest.class,
+		DataValidatorTest.class })
 public class AllTests {
 
 }

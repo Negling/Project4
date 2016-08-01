@@ -73,7 +73,7 @@ public class DataValidatorTest {
 		assertFalse(validator.validateLoginForm(container));
 		
 		container.clearContainerParams();
-		container.setParameter(getKey("userLogin"), "Время - пол 6-го");
+		container.setParameter(getKey("userLogin"), "Время - утро. Пол 6-го");
 		container.setParameter(getKey("userPass"), "А я пишу код. Сурово. ");
 		
 		assertFalse(validator.validateLoginForm(container));

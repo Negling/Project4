@@ -38,18 +38,15 @@
 					<input type="hidden" name="command" value="deleteProduct" />
 					<table border="1">
 						<tr>
-							<td align="center" width="20">ID
-							<td />
+							<td align="center" width="20">ID</td>
 							<td align="center" width="272"><fmt:message key="name" /></td>
 							<td align="center" width="112"><fmt:message key="price" /></td>
 							<td align="center" width="70"><fmt:message key="currency" /></td>
-							<td align="center" width="76">
-							<td />
+							<td align="center" width="76"></td>
 						</tr>
 						<c:forEach items="${sessionScope.products}" var="product">
 							<tr>
-								<td>${product.id}
-								<td />
+								<td>${product.id}</td>
 								<td>${product.name}</td>
 								<td align="center">${product.price}</td>
 								<td align="center">UAH</td>
@@ -57,7 +54,7 @@
 									<button name="pUpdateId" value="${product.id}">
 										<fmt:message key="deleteProductBTN" />
 									</button>
-								<td />
+								</td>
 							</tr>
 						</c:forEach>
 					</table>
@@ -78,10 +75,11 @@
 								<td><input type="text" name="pUpdatePrice" /></td>
 							</tr>
 							<tr>
-								<td><button class="button">
+								<td>
+									<button class="button">
 										<fmt:message key="addBTN" />
-									</button></td>
-								<td></td>
+									</button>
+								</td>
 							</tr>
 						</table>
 					</form>
@@ -95,7 +93,7 @@
 					<input type="hidden" name="command" value="blacklist" />
 					<table border="1">
 						<tr>
-							<td align="center" width="20">ID
+							<td align="center" width="20">ID</td>
 							<td align="center" width="100"><fmt:message key="nameLabel" /></td>
 							<td align="center" width="100"><fmt:message
 									key="surnameLabel" /></td>

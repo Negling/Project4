@@ -15,25 +15,32 @@ import ua.kiral.project4.model.dao.DAOFactory;
 import ua.kiral.project4.model.dao.impl.mysql.MySQLDAOFactory;
 
 /**
- * We use front controller model to process and dispatch requests from users. Only
- * post method supported.
+ * We use front controller model to process and dispatch requests from users.
+ * Only post method supported.
  *
  */
 public class Controller extends HttpServlet {
+	private CompositeCommand commands;
+
+	@Override
+	public void init() throws ServletException {
+		/*
+		 * To process request we need Command imlementation to invoke procedures
+		 * appropriate to request options. Commands globally dependens on DAO
+		 * layer implementation, and Validator implementation. In composite
+		 * command we store commands bound to each layer specified variables.
+		 * 
+		 */
+		DAOFactory factory = MySQLDAOFactory.getInstance();
+		Validator validator = new DataValidator();
+		commands = CompositeCommand.getInstance(factory, validator);
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		/*
-		 * To process request we need: 
-		 * 1) DAO Layer implementation to work with stored data and record new. 
-		 * 2) Validator implementation to verify data from requests. 
-		 * 3) Commands factory to process different request options.
-		 */
-		DAOFactory factory = MySQLDAOFactory.getInstance();
-		Validator validator = new DataValidator();
-
-		String path = CompositeCommand.getInstance(factory, validator).execute(new HttpRequestContainer(request));
+		// execute necessary command and forward
+		String path = commands.execute(new HttpRequestContainer(request));
 		request.getRequestDispatcher(path).forward(request, response);
 	}
 }

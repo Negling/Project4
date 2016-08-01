@@ -14,14 +14,13 @@ import ua.kiral.project4.mock.dao.MockDAOFactory;
 import ua.kiral.project4.mock.request.MockRequestContainer;
 import ua.kiral.project4.mock.validator.MockValidator;
 import ua.kiral.project4.model.command.impl.RegistrationCommand;
-import ua.kiral.project4.model.dao.exceptions.DAOException;
 
 public class RegistrationTest {
 	private static MockRequestContainer container;
 	private static RegistrationCommand command;
 
 	@BeforeClass
-	public static void beforeClass() throws DAOException {
+	public static void beforeClass() {
 		container = new MockRequestContainer(new HashMap<>(), null, new HashMap<>());
 		command = new RegistrationCommand(MockDAOFactory.getInstance(), new MockValidator());
 	}
@@ -42,15 +41,25 @@ public class RegistrationTest {
 	public void alreadyRegisteredTest() {
 		container.setParameter(getKey("userLogin"), "mock");
 
+		/*
+		 * by "mock" login value DAO mock will return user object, according to this,
+		 * registration cant be continued, failed registration msg expected
+		 */
+
 		assertTrue(command.execute(container).equals(getKey("registrationPath")));
 		assertTrue(container.getAttribute(getKey("registrationFailedMSG")) != null);
 	}
 	
 	@Test
-	public void successTest(){
+	public void successTest() {
 		container.setParameter(getKey("userLogin"), "null");
 		container.setParameter(getKey("userGender"), "");
-		
+
+		/*
+		 * with "null" login value DAO mock will return null, and user must be
+		 * successfuly registered.
+		 */
+
 		assertTrue(command.execute(container).equals(getKey("loginPath")));
 		assertTrue(container.getAttribute(getKey("registrationFailedMSG")) == null);
 	}
