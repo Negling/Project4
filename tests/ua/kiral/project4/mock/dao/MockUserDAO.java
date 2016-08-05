@@ -42,35 +42,35 @@ public class MockUserDAO implements UserDAO {
 	@Override
 	public User getById(Integer id) throws DAOException {
 		if (id < 0)
-			return new User(-1, "mock", "mock", "admin", "mock", "mock", false, false);
+			return new User(-1, "mock", "mock", "admin", "mock", "mock", false, false, false);
 		else if (id == 0)
-			return new User(1, "mock", "mock", "mock", "mock", "mock", false, true);
+			return new User(1, "mock", "mock", "mock", "mock", "mock", false, true, false);
 		else
-			return new User(-1, "mock", "mock", "mock", "mock", "mock", false, false);
+			return new User(-1, "mock", "mock", "mock", "mock", "mock", false, false, false);
 	}
 
 	@Override
 	public User getByLogin(String login) throws DAOException {
 		switch (login) {
-		case "admin":
-			return new User(1, "mock", "mock", "admin", "mock", "mock", false, false);
+		case "manager":
+			return new User(1, "mock", "mock", "admin", "mock", "mock", false, false, true);
 		case "blocked":
-			return new User(1, "mock", "mock", "mock", "mock", "mock", false, true);
+			return new User(1, "mock", "mock", "mock", "mock", "mock", false, true, true);
 		case "null":
 			return null;
 		case "anonym":
-			return new User(-1, "mock", "mock", "mock", "mock", "mock", false, false);
+			return new User(-1, "mock", "mock", "mock", "mock", "mock", false, false, false);
 		default:
-			return new User(1, "mock", "mock", "mock", "mock", "mock", false, false);
+			return new User(1, "mock", "mock", "mock", "mock", "mock", false, false, false);
 		}
 	}
 
 	@Override
 	public User getByEmail(String email) throws DAOException {
 		if (email == null)
-			return new User(-1, "mock", "mock", "mock", "mock", "mock", false, false);
+			return new User(-1, "mock", "mock", "mock", "mock", "mock", false, false, false);
 		else
-			return new User(1, "mock", "mock", "mock", "mock", "mock", false, false);
+			return new User(1, "mock", "mock", "mock", "mock", "mock", false, false, false);
 	}
 
 	@Override
@@ -91,6 +91,16 @@ public class MockUserDAO implements UserDAO {
 	@Override
 	public List<User> getByStatus(boolean blocked) throws DAOException {
 		return blocked == false ? null : new ArrayList<>();
+	}
+
+	@Override
+	public List<User> getCustomersOnly() throws DAOException {
+		return new ArrayList<>();
+	}
+
+	@Override
+	public List<User> getManagersOnly() throws DAOException {
+		return new ArrayList<>();
 	}
 
 	@Override

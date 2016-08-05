@@ -54,13 +54,13 @@ public class LoginTest {
 	}
 
 	@Test
-	public void loggedAdminTest() {
+	public void loggedManagerTest() {
 		HttpSession ses = container.getSession();
 		ses.setAttribute(getKey("userOnline"), true);
-		ses.setAttribute(getKey("userLogin"), getKey("adminLogin"));
+		ses.setAttribute(getKey("managerStatus"), true);
 
 		/*
-		 * if userOnline value is not empty, and this user is admin, command
+		 * if userOnline value is not empty, and this user is manager, command
 		 * must redirect him to admin page
 		 */
 
@@ -102,14 +102,14 @@ public class LoginTest {
 	}
 
 	@Test
-	public void adminLoggingTest() {
+	public void managerLoggingTest() {
 		HttpSession ses = container.getSession();
-		container.setParameter(getKey("userLogin"), getKey("adminLogin"));
+		container.setParameter(getKey("userLogin"), "manager");
 		container.setParameter(getKey("userPass"), "mock");
 
 		/*
-		 * if incoming params is correct, and user identified as admin,
-		 * conforming data must be loaded in session container, also admin must
+		 * if incoming params is correct, and user identified as amanager,
+		 * conforming data must be loaded in session container, also manager must
 		 * be marked as already logged
 		 */
 

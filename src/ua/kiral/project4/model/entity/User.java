@@ -18,12 +18,13 @@ public class User implements Serializable {
 	 */
 	private Boolean male;
 	private Boolean blocked;
+	private Boolean manager;
 
 	public User() {
 	}
 
 	public User(Integer userId, String name, String surname, String login, String password, String email, Boolean male,
-			Boolean isBlocked) {
+			Boolean blocked, Boolean manager) {
 		this.userId = userId;
 		this.name = name;
 		this.surname = surname;
@@ -31,7 +32,8 @@ public class User implements Serializable {
 		this.password = password;
 		this.email = email;
 		this.male = male;
-		this.blocked = isBlocked;
+		this.blocked = blocked;
+		this.manager = manager;
 	}
 
 	public Integer getUserId() {
@@ -98,12 +100,21 @@ public class User implements Serializable {
 		this.blocked = isBlocked;
 	}
 
+	public Boolean getManager() {
+		return manager;
+	}
+
+	public void setManager(Boolean manager) {
+		this.manager = manager;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("User userId=").append(userId).append(", name=").append(name).append(", surname=")
 				.append(surname).append(", login=").append(login).append(", password=").append(password)
-				.append(", email=").append(email).append(", male=").append(male).append(", blocked=").append(blocked);
+				.append(", email=").append(email).append(", male=").append(male).append(", blocked=").append(blocked)
+				.append(", manager=").append(manager);
 		return builder.toString();
 	}
 
@@ -115,6 +126,7 @@ public class User implements Serializable {
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((male == null) ? 0 : male.hashCode());
+		result = prime * result + ((manager == null) ? 0 : manager.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((surname == null) ? 0 : surname.hashCode());
@@ -150,6 +162,11 @@ public class User implements Serializable {
 			if (other.male != null)
 				return false;
 		} else if (!male.equals(other.male))
+			return false;
+		if (manager == null) {
+			if (other.manager != null)
+				return false;
+		} else if (!manager.equals(other.manager))
 			return false;
 		if (name == null) {
 			if (other.name != null)

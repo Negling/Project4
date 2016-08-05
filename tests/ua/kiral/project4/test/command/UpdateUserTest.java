@@ -84,7 +84,7 @@ public class UpdateUserTest {
 	public void succesTest() {
 		HttpSession ses = container.getSession();
 		List<User> users = new ArrayList<>();
-		User user = new User(1, "", "", "mock", "", "", false, false);
+		User user = new User(1, "", "", "mock", "", "", false, false, false);
 		users.add(user);
 		ses.setAttribute(getKey("usersList"), users);
 		container.setParameter(getKey("userCoreUpdateLogin"), "mock");

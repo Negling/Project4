@@ -21,11 +21,12 @@ import ua.kiral.project4.model.entity.Product;
 import ua.kiral.project4.model.entity.User;
 
 /**
- * This command provides authorization. first of all we check if user is already
- * has been authorized, if true - simpli refresh content and pass to content
+ * This command provides authorization. First of all we check if user is already
+ * has been authorized, if true - simply refresh content and pass to content
  * page. Otherwise - validate user data, if ok, check user managment rights, if
- * this is admin - fill admin containers, and pass to managment page, fill user
- * containers and pass to contant page. At last set user online marker.
+ * this is manager - fill manager containers, and pass to managment page,
+ * otherwise fill user containers and pass to contant page. At last set user
+ * online marker.
  *
  */
 public class LoginCommand extends Command {
@@ -50,10 +51,10 @@ public class LoginCommand extends Command {
 			/*
 			 * if corrent user is already logged in - return content page
 			 */
-			if (online != null && online) {
-				if (session.getAttribute(getKey("userLogin")).equals(getKey("adminLogin"))) {
+			if (online != null) {
+				if (session.getAttribute(getKey("managerStatus")) != null) {
 
-					prepareAdminPage(container, session, userDAO.getAll(), products,
+					prepareManagerPage(container, session, userDAO.getCustomersOnly(), products,
 							orderDAO.getAllByStatus(getKey("newOrderStatus")));
 
 					return getKey("adminPath");
@@ -84,14 +85,15 @@ public class LoginCommand extends Command {
 					session.setAttribute(getKey("userId"), currentUser.getUserId());
 
 					/*
-					 * here we figuring out, if our user is admin, or regular
+					 * here we figuring out, if our user is manager, or regular
 					 * guy
 					 */
-					if (currentUser.getLogin().equals(getKey("adminLogin"))) {
+					if (currentUser.getManager()) {
 
-						// if admin, prepear data for admin page
-						prepareAdminPage(container, session, userDAO.getAll(), products,
+						// if manager, prepear data for admin page
+						prepareManagerPage(container, session, userDAO.getCustomersOnly(), products,
 								orderDAO.getAllByStatus(getKey("newOrderStatus")));
+						session.setAttribute(getKey("managerStatus"), true);
 
 						return getKey("adminPath");
 					} else {
@@ -124,7 +126,7 @@ public class LoginCommand extends Command {
 	 * @param users
 	 * @param products
 	 */
-	private void prepareAdminPage(RequestContainer container, HttpSession session, List<User> users,
+	private void prepareManagerPage(RequestContainer container, HttpSession session, List<User> users,
 			List<Product> products, List<Order> orders) {
 		prepareUserPage(session, products);
 		session.setAttribute(getKey("usersList"), users);

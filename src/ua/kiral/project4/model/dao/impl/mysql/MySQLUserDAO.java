@@ -110,6 +110,32 @@ public class MySQLUserDAO extends MySQLBaseDAO<User> implements UserDAO {
 	}
 
 	@Override
+	public List<User> getCustomersOnly() throws DAOException {
+		try (Connection connection = getConnection();
+				PreparedStatement statement = connection.prepareStatement(getSelectSQLWithKey("manager"))) {
+
+			statement.setBoolean(1, false);
+			return super.getListByQuerry(statement);
+
+		} catch (SQLException cause) {
+			throw new DAOException(cause);
+		}
+	}
+
+	@Override
+	public List<User> getManagersOnly() throws DAOException {
+		try (Connection connection = getConnection();
+				PreparedStatement statement = connection.prepareStatement(getSelectSQLWithKey("manager"))) {
+
+			statement.setBoolean(1, true);
+			return super.getListByQuerry(statement);
+
+		} catch (SQLException cause) {
+			throw new DAOException(cause);
+		}
+	}
+
+	@Override
 	public boolean deleteByName(String name) throws DAOException {
 		try (Connection connection = getConnection();
 				PreparedStatement deleteStatement = connection.prepareStatement(getDeleteByKeySQL("name"))) {
@@ -170,8 +196,10 @@ public class MySQLUserDAO extends MySQLBaseDAO<User> implements UserDAO {
 	protected void prepareStatementForInsert(PreparedStatement insertionStatement, User entity) throws DAOException {
 		Boolean genderValue = entity.getMale();
 		Boolean blockedValue = entity.getBlocked();
+		Boolean managerValue = entity.getManager();
 		String gender = genderValue == null ? null : (genderValue) ? "1" : "0";
 		String blocked = blockedValue == null ? null : (blockedValue) ? "1" : "0";
+		String manager = managerValue == null ? null : (managerValue) ? "1" : "0";
 
 		try {
 			insertionStatement.setString(1, entity.getName());
@@ -181,6 +209,7 @@ public class MySQLUserDAO extends MySQLBaseDAO<User> implements UserDAO {
 			insertionStatement.setString(5, entity.getEmail());
 			insertionStatement.setString(6, gender);
 			insertionStatement.setString(7, blocked);
+			insertionStatement.setString(8, manager);
 		} catch (SQLException cause) {
 			throw new DAOException(cause);
 		}
@@ -190,9 +219,11 @@ public class MySQLUserDAO extends MySQLBaseDAO<User> implements UserDAO {
 	protected void prepareStatementForUpdate(PreparedStatement updateStatement, User newEntity, User oldEntity)
 			throws DAOException {
 		Boolean genderValue = newEntity.getMale();
-		String gender = genderValue == null ? null : (genderValue) ? "1" : "0";
 		Boolean blockedValue = newEntity.getBlocked();
+		Boolean managerValue = newEntity.getManager();
+		String gender = genderValue == null ? null : (genderValue) ? "1" : "0";
 		String blocked = blockedValue == null ? null : (blockedValue) ? "1" : "0";
+		String manager = managerValue == null ? null : (managerValue) ? "1" : "0";
 
 		try {
 			updateStatement.setString(1, newEntity.getName());
@@ -202,7 +233,8 @@ public class MySQLUserDAO extends MySQLBaseDAO<User> implements UserDAO {
 			updateStatement.setString(5, newEntity.getEmail());
 			updateStatement.setString(6, gender);
 			updateStatement.setString(7, blocked);
-			updateStatement.setString(8, oldEntity.getLogin());
+			updateStatement.setString(8, manager);
+			updateStatement.setString(9, oldEntity.getLogin());
 		} catch (SQLException cause) {
 			throw new DAOException(cause);
 		}
@@ -224,7 +256,7 @@ public class MySQLUserDAO extends MySQLBaseDAO<User> implements UserDAO {
 			Boolean gender = rs.getObject(7) == null ? null : rs.getBoolean(7);
 
 			return new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-					rs.getString(6), gender, rs.getBoolean(8));
+					rs.getString(6), gender, rs.getBoolean(8), rs.getBoolean(9));
 		} catch (SQLException cause) {
 			throw new DAOException(cause);
 		}

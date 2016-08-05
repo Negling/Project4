@@ -12,7 +12,7 @@ import ua.kiral.project4.model.entity.User;
 public interface UserDAO extends GenericDAO<User> {
 
 	/**
-	 * User wich mathes to specified id;
+	 * User wich mathes to specified id.
 	 * 
 	 * @param id
 	 * @return null if there was no such user.
@@ -30,7 +30,7 @@ public interface UserDAO extends GenericDAO<User> {
 	public User getByLogin(String login) throws DAOException;
 
 	/**
-	 * User wich mathes to specified email;
+	 * User wich mathes to specified email.
 	 * 
 	 * @param email
 	 * @return null if there was no such user.
@@ -39,7 +39,7 @@ public interface UserDAO extends GenericDAO<User> {
 	public User getByEmail(String email) throws DAOException;
 
 	/**
-	 * Returns list of Users wich mathes to specified name;
+	 * Returns list of Users wich mathes to specified name.
 	 * 
 	 * @param name
 	 * @return null if no users match to argument.
@@ -48,7 +48,7 @@ public interface UserDAO extends GenericDAO<User> {
 	public List<User> getByName(String name) throws DAOException;
 
 	/**
-	 * Returns list of Users wich mathes to specified surname;
+	 * Returns list of Users wich mathes to specified surname.
 	 * 
 	 * @param surname
 	 * @return null if no users match to argument.
@@ -57,7 +57,7 @@ public interface UserDAO extends GenericDAO<User> {
 	public List<User> getBySurname(String surname) throws DAOException;
 
 	/**
-	 * Returns list of Users wich mathes to specified gender;
+	 * Returns list of Users wich mathes to specified gender.
 	 * 
 	 * @param gender
 	 * @return null if no users match to argument.
@@ -66,7 +66,7 @@ public interface UserDAO extends GenericDAO<User> {
 	public List<User> getByGender(boolean gender) throws DAOException;
 
 	/**
-	 * Returns list of Users wich mathes to specified status;
+	 * Returns list of Users wich mathes to specified status.
 	 * 
 	 * @param blocked
 	 *            status
@@ -76,7 +76,23 @@ public interface UserDAO extends GenericDAO<User> {
 	public List<User> getByStatus(boolean blocked) throws DAOException;
 
 	/**
-	 * Deletes all Users wich mathes to specified user name;
+	 * Returns list of customers only.
+	 * 
+	 * @return null if no users match to argument.
+	 * @throws DAOException
+	 */
+	public List<User> getCustomersOnly() throws DAOException;
+
+	/**
+	 * Returns list of managers only.
+	 * 
+	 * @return null if no users match to argument.
+	 * @throws DAOException
+	 */
+	public List<User> getManagersOnly() throws DAOException;
+
+	/**
+	 * Deletes all Users wich mathes to specified user name.
 	 * 
 	 * @param name
 	 * @return <code>true</code> in case of success, false otherwise
@@ -94,7 +110,7 @@ public interface UserDAO extends GenericDAO<User> {
 	public boolean deleteBySurname(String surname) throws DAOException;
 
 	/**
-	 * Deletes all Users wich mathes to specified user gender;
+	 * Deletes all Users wich mathes to specified user gender.
 	 * 
 	 * @param gender
 	 * @return <code>true</code> in case of success, false otherwise
@@ -103,7 +119,7 @@ public interface UserDAO extends GenericDAO<User> {
 	public boolean deleteByGender(boolean gender) throws DAOException;
 
 	/**
-	 * Deletes all Users wich mathes to specified blocked status;
+	 * Deletes all Users wich mathes to specified blocked status.
 	 * 
 	 * @param status
 	 * @return <code>true</code> in case of success, false otherwise
