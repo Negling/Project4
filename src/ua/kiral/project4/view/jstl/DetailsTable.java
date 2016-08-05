@@ -44,17 +44,19 @@ public class DetailsTable extends TagSupport {
 
 	@Override
 	public int doStartTag() throws JspException {
-		try {
-			StringBuilder builder = new StringBuilder();
+		if (details != null) {
+			try {
+				StringBuilder builder = new StringBuilder();
 
-			if (asTable)
-				formatAsTable(builder);
-			else
-				formatRegular(builder);
+				if (asTable)
+					formatAsTable(builder);
+				else
+					formatRegular(builder);
 
-			pageContext.getOut().print(builder.toString());
-		} catch (Exception ex) {
-			logger.error("Unexpected behavior: Tags, DetailsTable:", ex);
+				pageContext.getOut().print(builder.toString());
+			} catch (Exception ex) {
+				logger.error("Unexpected behavior: Tags, DetailsTable:", ex);
+			}
 		}
 		return SKIP_BODY;
 	}
