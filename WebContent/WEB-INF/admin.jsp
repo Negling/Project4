@@ -20,7 +20,8 @@
 		<div class="header-right">
 			<div>
 				<form action="/Project4/controller" method="post">
-					<input type="hidden" name="requestPath" value="/WEB-INF/admin.jsp" />
+					<input type="hidden" name="CSRF" value="${sessionScope.CSRF}" /> 
+					<input type="hidden" name="requestPath" value="/WEB-INF/admin.jsp" /> 
 					<input type="hidden" name="command" value="language" />
 					<button class="button" name="locale" value="RU">RU</button>
 					<button class="button" name="locale" value="EN">EN</button>
@@ -35,6 +36,7 @@
 					<fmt:message key="manageProducts" />
 				</summary>
 				<form action="/Project4/controller" method="post">
+					<input type="hidden" name="CSRF" value="${sessionScope.CSRF}" /> 
 					<input type="hidden" name="command" value="deleteProduct" />
 					<table border="1">
 						<tr>
@@ -64,6 +66,7 @@
 						<fmt:message key="addProduct" />
 					</summary>
 					<form action="/Project4/controller" method="post">
+						<input type="hidden" name="CSRF" value="${sessionScope.CSRF}" />
 						<input type="hidden" name="command" value="addProduct" />
 						<table>
 							<tr>
@@ -90,6 +93,7 @@
 					<fmt:message key="manageUsers" />
 				</summary>
 				<form action="/Project4/controller" method="post">
+					<input type="hidden" name="CSRF" value="${sessionScope.CSRF}" /> 
 					<input type="hidden" name="command" value="blacklist" />
 					<table border="1">
 						<tr>
@@ -156,6 +160,7 @@
 					</c:when>
 					<c:otherwise>
 						<form action="/Project4/controller" method="post">
+							<input type="hidden" name="CSRF" value="${sessionScope.CSRF}" /> 
 							<input type="hidden" name="command" value="ordersM" />
 							<table border="1">
 								<tr>

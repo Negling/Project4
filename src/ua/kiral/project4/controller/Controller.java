@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import ua.kiral.project4.controller.request.HttpRequestContainer;
 import ua.kiral.project4.model.command.CompositeCommand;
-import ua.kiral.project4.model.command.validator.DataValidator;
-import ua.kiral.project4.model.command.validator.Validator;
+import ua.kiral.project4.model.command.validation.DataValidator;
+import ua.kiral.project4.model.command.validation.Validator;
 import ua.kiral.project4.model.dao.DAOFactory;
 import ua.kiral.project4.model.dao.impl.mysql.MySQLDAOFactory;
 

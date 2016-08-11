@@ -21,6 +21,7 @@
 		<div class="header-right">
 			<div>
 				<form action="/Project4/controller" method="post">
+					<input type="hidden" name="CSRF" value="${sessionScope.CSRF}" /> 
 					<input type="hidden" name="command" value="content" />
 					<button class="button">
 						<fmt:message key="contentPageTitle" />
@@ -29,6 +30,7 @@
 			</div>
 			<div>
 				<form action="/Project4/controller" method="post">
+				    <input type="hidden" name="CSRF" value="${sessionScope.CSRF}" />
 					<input type="hidden" name="requestPath" value="/WEB-INF/orders.jsp" />
 					<input type="hidden" name="command" value="language" />
 					<button class="button" name="locale" value="RU">RU</button>

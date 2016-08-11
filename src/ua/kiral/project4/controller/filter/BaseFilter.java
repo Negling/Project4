@@ -1,6 +1,7 @@
 package ua.kiral.project4.controller.filter;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -13,14 +14,30 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Abstratct implementation of Filter interface. Motivation - override unused
- * methods with emty body and cast doFilter params to Http-values, cuz we use Http
- * realization only.
+ * methods with emty body and cast doFilter params to Http-values, cuz we use
+ * Http realization only.
  *
  */
 public abstract class BaseFilter implements Filter {
+	protected ResourceBundle filterProperties;
 
+	/**
+	 * In case of overriding this method, necessarily call
+	 * super.init(filterConfig)! If you dont need filterConfig instance, it's
+	 * hardly recommended to override init() method instead of this.
+	 */
 	@Override
-	public void init(FilterConfig arg0) throws ServletException {
+	public void init(FilterConfig filterConfig) throws ServletException {
+		this.filterProperties = ResourceBundle.getBundle("resources/filter");
+		init();
+	}
+
+	/**
+	 * If you need to initialize some filter params before it starts, use this
+	 * method instead of overriding "init(FilterConfig)", and it will be
+	 * called in init(FilterConfig) method.
+	 */
+	public void init() {
 		// Does nothing
 	}
 

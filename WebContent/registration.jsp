@@ -24,7 +24,8 @@
 		<div class="header-right">
 			<div>
 				<form action="/Project4/controller" method="post">
-					<input type="hidden" name="requestPath" value="/registration.jsp" />
+					<input type="hidden" name="CSRF" value="${sessionScope.CSRF}" /> 
+					<input type="hidden" name="requestPath" value="/registration.jsp" /> 
 					<input type="hidden" name="command" value="language" />
 					<button class="button" name="locale" value="RU">RU</button>
 					<button class="button" name="locale" value="EN">EN</button>
@@ -35,7 +36,8 @@
 	<div class="content">
 		<div>
 			<form method="post" action="/Project4/controller">
-				<input type="hidden" name="command" value="register" />
+				<input type="hidden" name="CSRF" value="${sessionScope.CSRF}" /> <input
+					type="hidden" name="command" value="register" />
 				<table>
 					<tr>
 						<td width="70" align="left" valign="middle"><fmt:message

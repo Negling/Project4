@@ -1,6 +1,7 @@
 <div class="logout">
 	<form action="/Project4/controller" method="post">
-		<input type="hidden" name="command" value="logout" />
+	<input type="hidden" name="CSRF" value="${sessionScope.CSRF}" />
+	<input type="hidden" name="command" value="logout" />
 		<c:choose>
 			<c:when test="${not empty sessionScope.logged}">
 				<fmt:message key="greetingsMSG" />

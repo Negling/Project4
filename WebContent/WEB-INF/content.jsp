@@ -20,6 +20,7 @@
 		<div class="header-right">
 			<div>
 				<form action="/Project4/controller" method="post">
+					<input type="hidden" name="CSRF" value="${sessionScope.CSRF}" /> 
 					<input type="hidden" name="command" value="userOrders" />
 					<button class="button">
 						<fmt:message key="myOrdersMSG" />
@@ -28,9 +29,9 @@
 			</div>
 			<div>
 				<form action="/Project4/controller" method="post">
-					<input type="hidden" name="requestPath"
-						value="/WEB-INF/content.jsp" /> <input type="hidden"
-						name="command" value="language" />
+					<input type="hidden" name="CSRF" value="${sessionScope.CSRF}" /> 
+					<input type="hidden" name="requestPath" value="/WEB-INF/content.jsp" />
+					<input type="hidden" name="command" value="language" />
 					<button class="button" name="locale" value="RU">RU</button>
 					<button class="button" name="locale" value="EN">EN</button>
 				</form>
@@ -43,6 +44,7 @@
 				<td width="550">
 					<div class="outer-table">
 						<form action="/Project4/controller" method="post">
+							<input type="hidden" name="CSRF" value="${sessionScope.CSRF}" />
 							<input type="hidden" name="command" value="addProductBucket" />
 							<table border="1">
 								<tr>
@@ -84,6 +86,7 @@
 					: ${bucket.size()}
 				</summary>
 				<form action="/Project4/controller" method="post">
+					<input type="hidden" name="CSRF" value="${sessionScope.CSRF}" /> 
 					<input type="hidden" name="command" value="removeProductBucket" />
 					<c:set var="bucket" value="${sessionScope.bucket }" />
 					<table>
@@ -104,6 +107,7 @@
 					</table>
 				</form>
 				<form action="/Project4/controller" method="post">
+					<input type="hidden" name="CSRF" value="${sessionScope.CSRF}" /> 
 					<input type="hidden" name="command" value="purchase" />
 					<button class="bucket-button">
 						<fmt:message key="confirmBTN" />
@@ -112,4 +116,4 @@
 			</details>
 		</div>
 	</div>
-	<%@include file="/fragments/footer.jspf"%>
+<%@include file="/fragments/footer.jspf"%>

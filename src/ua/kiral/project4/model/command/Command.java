@@ -3,7 +3,7 @@ package ua.kiral.project4.model.command;
 import java.util.ResourceBundle;
 
 import ua.kiral.project4.controller.request.RequestContainer;
-import ua.kiral.project4.model.command.validator.Validator;
+import ua.kiral.project4.model.command.validation.Validator;
 import ua.kiral.project4.model.dao.DAOFactory;
 
 /**
@@ -16,7 +16,7 @@ public abstract class Command {
 	/**
 	 * Resource bundle stores all commands-string shortcuts.
 	 */
-	private ResourceBundle properties = ResourceBundle.getBundle("resources/command/commands");
+	private ResourceBundle properties = ResourceBundle.getBundle("resources/commands");
 	protected DAOFactory DAOfactory;
 	protected Validator validator;
 

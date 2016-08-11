@@ -13,8 +13,9 @@
 		<div class="header-right">
 			<div>
 				<form action="/Project4/controller" method="post">
-					<input type="hidden" name="requestPath" value="/index.jsp" /> <input
-						type="hidden" name="command" value="language" />
+					<input type="hidden" name="requestPath" value="/index.jsp" />
+					<input type="hidden" name="command" value="language" />
+					<input type="hidden" name="CSRF" value="${sessionScope.CSRF}" />
 					<button class="button" name="locale" value="RU">RU</button>
 					<button class="button" name="locale" value="EN">EN</button>
 				</form>

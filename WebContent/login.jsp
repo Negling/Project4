@@ -23,8 +23,9 @@
 		<div class="header-right">
 			<div>
 				<form action="/Project4/controller" method="post">
-					<input type="hidden" name="requestPath" value="/login.jsp" /> <input
-						type="hidden" name="command" value="language" />
+					<input type="hidden" name="requestPath" value="/login.jsp" />
+					<input type="hidden" name="command" value="language" />
+					<input type="hidden" name="CSRF" value="${sessionScope.CSRF}" />
 					<button class="button" name="locale" value="RU">RU</button>
 					<button class="button" name="locale" value="EN">EN</button>
 				</form>
@@ -36,6 +37,7 @@
 			<form class="form-container" method="post"
 				action="/Project4/controller">
 				<input type="hidden" name="command" value="login" />
+				<input type="hidden" name="CSRF" value="${sessionScope.CSRF}" />
 				<div class="form-title">
 					<fmt:message key="loginLabel" />:
 				</div>

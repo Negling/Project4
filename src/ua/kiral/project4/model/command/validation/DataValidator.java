@@ -1,4 +1,4 @@
-package ua.kiral.project4.model.command.validator;
+package ua.kiral.project4.model.command.validation;
 
 import java.util.ResourceBundle;
 

@@ -11,7 +11,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import ua.kiral.project4.mock.request.MockRequestContainer;
-import ua.kiral.project4.model.command.validator.DataValidator;
+import ua.kiral.project4.model.command.validation.DataValidator;
+
 import static ua.kiral.project4.test.command.CommandsProperties.*;
 
 public class DataValidatorTest {
@@ -20,7 +21,7 @@ public class DataValidatorTest {
 
 	@BeforeClass
 	public static void beforeClass() {
-		validator = new DataValidator(ResourceBundle.getBundle("resources/command/commands"));
+		validator = new DataValidator(ResourceBundle.getBundle("resources/commands"));
 		container = new MockRequestContainer(new HashMap<>(), null, null);
 	}
 

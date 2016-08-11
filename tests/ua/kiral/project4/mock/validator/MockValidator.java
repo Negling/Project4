@@ -3,7 +3,7 @@ package ua.kiral.project4.mock.validator;
 import java.util.ResourceBundle;
 
 import ua.kiral.project4.controller.request.RequestContainer;
-import ua.kiral.project4.model.command.validator.Validator;
+import ua.kiral.project4.model.command.validation.Validator;
 
 /**
  * Simple giglet. Returns true in all cases.

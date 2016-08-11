@@ -7,7 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import ua.kiral.project4.controller.request.RequestContainer;
-import ua.kiral.project4.model.command.validator.Validator;
+import ua.kiral.project4.model.command.validation.Validator;
 import ua.kiral.project4.model.dao.DAOFactory;
 
 /**
