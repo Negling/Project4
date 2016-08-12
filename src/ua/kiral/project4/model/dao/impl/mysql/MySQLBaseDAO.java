@@ -154,6 +154,7 @@ abstract class MySQLBaseDAO<E> implements GenericDAO<E> {
 			// executing operation.
 			affectedRows = statement.executeUpdate();
 
+			
 			/*
 			 * if affected rows is necessary value, and its value doesn't match
 			 * to expected - throw exception.

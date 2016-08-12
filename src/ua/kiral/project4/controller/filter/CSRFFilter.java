@@ -23,16 +23,14 @@ import ua.kiral.project4.model.util.HashGenerator;
  */
 public class CSRFFilter extends BaseFilter {
 	final static Logger logger = LogManager.getLogger(CSRFFilter.class);
-	
-	
 
 	@Override
 	public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpSession session = request.getSession();
-		String requestToken = request.getParameter(getKey("token"));
-		String sessionToken = (String) session.getAttribute(getKey("token"));
-		String tokenKey = (String) session.getAttribute(getKey("key"));
+		String requestToken = request.getParameter("CSRF");
+		String sessionToken = (String) session.getAttribute("CSRF");
+		String tokenKey = (String) session.getAttribute("tokenKey");
 
 		/*
 		 * if this conditions is true - it means that this is first request, we
@@ -44,20 +42,20 @@ public class CSRFFilter extends BaseFilter {
 				tokenKey = HashGenerator.generateKey(10);
 				sessionToken = HashGenerator.generateHash(tokenKey, "MD5");
 
-				session.setAttribute(getKey("key"), tokenKey);
-				session.setAttribute(getKey("token"), sessionToken);
+				session.setAttribute("tokenKey", tokenKey);
+				session.setAttribute("CSRF", sessionToken);
 
 				chain.doFilter(request, response);
 			} catch (NoSuchAlgorithmException ex) {
 				logger.error("Exception in CSRF filter, failed to encode hash", ex);
-				response.sendRedirect(getKey("errorURI"));
+				response.sendRedirect(request.getContextPath() + "/error.jsp");
 			}
 		} else if (requestToken != null && requestToken.equals(sessionToken)) {
 			// tokens match, simply continue
 			chain.doFilter(request, response);
 		} else {
 			// In this case, session ID may be stolen, redirect to error page
-			response.sendRedirect(getKey("errorURI"));
+			response.sendRedirect(request.getContextPath() + "/error.jsp");
 		}
 	}
 }

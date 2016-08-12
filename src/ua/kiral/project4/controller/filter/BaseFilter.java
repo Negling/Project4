@@ -1,7 +1,6 @@
 package ua.kiral.project4.controller.filter;
 
 import java.io.IOException;
-import java.util.ResourceBundle;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -19,23 +18,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  */
 public abstract class BaseFilter implements Filter {
-	private ResourceBundle filterProperties;
-	private FilterConfig filterConfig;
 
 	@Override
-	public final void init(FilterConfig filterConfig) throws ServletException {
-		this.filterConfig = filterConfig;
-		this.filterProperties = ResourceBundle.getBundle("resources/filter");
-		init();
-	}
-
-	/**
-	 * If you need to initialize some filter params before it starts, use this
-	 * method instead of overriding "init(FilterConfig)" from Filter interface,
-	 * and it will be called in init(FilterConfig) method. To get init params
-	 * use getFilterConfig() method.
-	 */
-	public void init() {
+	public void init(FilterConfig filterConfig) throws ServletException {
 		// Does nothing
 	}
 
@@ -51,13 +36,5 @@ public abstract class BaseFilter implements Filter {
 	@Override
 	public void destroy() {
 		// Does nothing
-	}
-
-	public FilterConfig getFilterConfig() {
-		return filterConfig;
-	}
-
-	protected String getKey(String value) {
-		return filterProperties.getString(value);
 	}
 }
