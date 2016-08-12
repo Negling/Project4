@@ -19,23 +19,21 @@ import javax.servlet.http.HttpServletResponse;
  *
  */
 public abstract class BaseFilter implements Filter {
-	protected ResourceBundle filterProperties;
+	private ResourceBundle filterProperties;
+	private FilterConfig filterConfig;
 
-	/**
-	 * In case of overriding this method, necessarily call
-	 * super.init(filterConfig)! If you dont need filterConfig instance, it's
-	 * hardly recommended to override init() method instead of this.
-	 */
 	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
+	public final void init(FilterConfig filterConfig) throws ServletException {
+		this.filterConfig = filterConfig;
 		this.filterProperties = ResourceBundle.getBundle("resources/filter");
 		init();
 	}
 
 	/**
 	 * If you need to initialize some filter params before it starts, use this
-	 * method instead of overriding "init(FilterConfig)", and it will be
-	 * called in init(FilterConfig) method.
+	 * method instead of overriding "init(FilterConfig)" from Filter interface,
+	 * and it will be called in init(FilterConfig) method. To get init params
+	 * use getFilterConfig() method.
 	 */
 	public void init() {
 		// Does nothing
@@ -53,5 +51,13 @@ public abstract class BaseFilter implements Filter {
 	@Override
 	public void destroy() {
 		// Does nothing
+	}
+
+	public FilterConfig getFilterConfig() {
+		return filterConfig;
+	}
+
+	protected String getKey(String value) {
+		return filterProperties.getString(value);
 	}
 }

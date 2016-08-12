@@ -19,15 +19,15 @@ public class RequestPathFilter extends BaseFilter {
 		String requestedPath = request.getRequestURI();
 
 		// if request is bounded to specified resource-file pattern, pass next
-		if (requestedPath.matches(filterProperties.getString("css")) 
-				|| requestedPath.matches(filterProperties.getString("image"))
-				|| requestedPath.matches(filterProperties.getString("tagDescriptor"))) {
+		if (requestedPath.matches(getKey("css")) 
+				|| requestedPath.matches(getKey("image"))
+				|| requestedPath.matches(getKey("tagDescriptor"))) {
 			
 			chain.doFilter(request, response);
 		} else {
 
 			// if request aint resource, but match to allowed path - pass next
-			String[] correctPath = filterProperties.getString("corectPath").split(",");
+			String[] correctPath = getKey("corectPath").split(",");
 
 			for (String pathValue : correctPath) {
 				if (requestedPath.equals(pathValue)) {
@@ -36,7 +36,7 @@ public class RequestPathFilter extends BaseFilter {
 				}
 			}
 			// otherwise - throw error page
-			response.sendRedirect(filterProperties.getString("errorURI"));
+			response.sendRedirect(getKey("errorURI"));
 		}
 	}
 }

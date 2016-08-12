@@ -23,18 +23,20 @@ import ua.kiral.project4.model.util.HashGenerator;
  */
 public class CSRFFilter extends BaseFilter {
 	final static Logger logger = LogManager.getLogger(CSRFFilter.class);
+	
+	
 
 	@Override
 	public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpSession session = request.getSession();
-		String requestToken = request.getParameter(filterProperties.getString("token"));
-		String sessionToken = (String) session.getAttribute(filterProperties.getString("token"));
-		String tokenKey = (String) session.getAttribute(filterProperties.getString("key"));
+		String requestToken = request.getParameter(getKey("token"));
+		String sessionToken = (String) session.getAttribute(getKey("token"));
+		String tokenKey = (String) session.getAttribute(getKey("key"));
 
 		/*
 		 * if this conditions is true - it means that this is first request, we
-		 * need to create tokken, and secret keyWord, wich is actually source of
+		 * need to create token, and secret keyWord, wich is actually source of
 		 * generated token
 		 */
 		if (tokenKey == null && (requestToken == null || requestToken.isEmpty())) {
@@ -42,20 +44,20 @@ public class CSRFFilter extends BaseFilter {
 				tokenKey = HashGenerator.generateKey(10);
 				sessionToken = HashGenerator.generateHash(tokenKey, "MD5");
 
-				session.setAttribute(filterProperties.getString("key"), tokenKey);
-				session.setAttribute(filterProperties.getString("token"), sessionToken);
+				session.setAttribute(getKey("key"), tokenKey);
+				session.setAttribute(getKey("token"), sessionToken);
 
 				chain.doFilter(request, response);
 			} catch (NoSuchAlgorithmException ex) {
 				logger.error("Exception in CSRF filter, failed to encode hash", ex);
-				response.sendRedirect(filterProperties.getString("errorURI"));
+				response.sendRedirect(getKey("errorURI"));
 			}
 		} else if (requestToken != null && requestToken.equals(sessionToken)) {
 			// tokens match, simply continue
 			chain.doFilter(request, response);
 		} else {
-			// In this case, session may be stolen, redirect to error page
-			response.sendRedirect(filterProperties.getString("errorURI"));
+			// In this case, session ID may be stolen, redirect to error page
+			response.sendRedirect(getKey("errorURI"));
 		}
 	}
 }
