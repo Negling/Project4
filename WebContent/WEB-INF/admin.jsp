@@ -155,7 +155,7 @@
 					<fmt:message key="manageOrders" />
 				</summary>
 				<c:choose>
-					<c:when test="${not empty requestScope.noOrders }">
+					<c:when test="${not empty sessionScope.noOrders }">
 						<fmt:message key="noNewOrdersMSG" />
 					</c:when>
 					<c:otherwise>

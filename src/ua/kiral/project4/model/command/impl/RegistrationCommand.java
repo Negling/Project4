@@ -80,6 +80,7 @@ public class RegistrationCommand extends Command {
 		newUser.setEmail(container.getParameter(getKey("userEmail")));
 		newUser.setMale(gender);
 		newUser.setBlocked(false);
+		newUser.setManager(false);
 
 		return newUser;
 	}

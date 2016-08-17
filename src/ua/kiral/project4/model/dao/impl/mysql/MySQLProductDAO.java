@@ -202,8 +202,8 @@ public class MySQLProductDAO extends MySQLBaseDAO<Product> implements ProductDAO
 		try {
 			updateStatement.setString(1, newEntity.getName());
 			updateStatement.setBigDecimal(2, newEntity.getPrice());
-			updateStatement.setInt(3, oldEntity.getId());
-			updateStatement.setBoolean(4, oldEntity.getRemoved());
+			updateStatement.setBoolean(3, oldEntity.getRemoved());
+			updateStatement.setInt(4, oldEntity.getId());
 		} catch (SQLException cause) {
 			throw new DAOException(cause);
 		}
@@ -221,7 +221,7 @@ public class MySQLProductDAO extends MySQLBaseDAO<Product> implements ProductDAO
 	@Override
 	protected Product parseEntity(ResultSet rs) throws DAOException {
 		try {
-			return new Product(rs.getInt(1), rs.getString(2), rs.getBigDecimal(3), rs.getBoolean(3));
+			return new Product(rs.getInt(1), rs.getString(2), rs.getBigDecimal(3), rs.getBoolean(4));
 		} catch (SQLException cause) {
 			throw new DAOException(cause);
 		}

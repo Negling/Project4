@@ -55,13 +55,13 @@ public class AddProductCommand extends Command {
 			BigDecimal newPrice = new BigDecimal(productPrice).setScale(2, RoundingMode.HALF_EVEN);
 
 			// creating instance of new product
-			Product updated = new Product(null, productName, newPrice, false);
+			Product newProduct = new Product(null, productName, newPrice, false);
 
-			if (productDAO.create(updated)) {
+			if (productDAO.create(newProduct)) {
 
 				// updating products repo
-				updated.setId(productDAO.getProductId(updated));
-				products.add(updated);
+				newProduct.setId(productDAO.getProductId(newProduct));
+				products.add(newProduct);
 
 				return getKey("adminPath");
 			} else

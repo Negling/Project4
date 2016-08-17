@@ -56,7 +56,7 @@ public class OrderManagmentCommand extends Command {
 				orders.removeIf(o -> o.getOrderId().equals(orderId));
 
 				if (orders.isEmpty())
-					container.setAttribute(getKey("emptyOrderList"), true);
+					session.setAttribute(getKey("emptyOrderList"), true);
 
 				return getKey("adminPath");
 			} else

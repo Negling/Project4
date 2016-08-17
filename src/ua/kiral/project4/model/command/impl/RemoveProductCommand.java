@@ -50,7 +50,7 @@ public class RemoveProductCommand extends Command {
 			if (productToRemove == null) {
 				return getKey("errorPath");
 			}
-
+			
 			// updating product status
 			productToRemove.setRemoved(true);
 

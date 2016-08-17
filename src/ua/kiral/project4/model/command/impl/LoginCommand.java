@@ -132,7 +132,7 @@ public class LoginCommand extends Command {
 		session.setAttribute(getKey("usersList"), users);
 
 		if (orders == null || orders.isEmpty())
-			container.setAttribute(getKey("emptyOrderList"), true);
+			session.setAttribute(getKey("emptyOrderList"), true);
 		else
 			session.setAttribute(getKey("ordersList"), orders);
 	}
