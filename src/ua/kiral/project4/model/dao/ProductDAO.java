@@ -14,7 +14,7 @@ import ua.kiral.project4.model.entity.Product;
 public interface ProductDAO extends GenericDAO<Product> {
 	
 	/**
-	 * Returns product id wich mathes to specified product;
+	 * Returns product id wich mathes to specified product.
 	 * 
 	 * @param Id
 	 * @return -1 if there was no such product.
@@ -23,7 +23,7 @@ public interface ProductDAO extends GenericDAO<Product> {
 	int getProductId(Product product) throws DAOException;
 
 	/**
-	 * Returns Product wich mathes to specified product ID;
+	 * Returns Product wich mathes to specified product ID.
 	 * 
 	 * @param productId
 	 * @return null if there was no such product.
@@ -32,16 +32,28 @@ public interface ProductDAO extends GenericDAO<Product> {
 	public Product getProductByID(int productId) throws DAOException;
 
 	/**
-	 * Returns list of Products wich mathes to specified product name;
+	 * Returns list of Products wich mathes to specified product name.
 	 * 
 	 * @param name
 	 * @return null if no products match to argument.
 	 * @throws DAOException
 	 */
 	public List<Product> getAllByName(String name) throws DAOException;
+	
+	/**
+	 * Returns list of Products wich mathes to specified product status. If
+	 * status is true - returns all aviliable products, otherwise all removed.
+	 * 
+	 * @param name
+	 * @return null if no products match to argument.
+	 * @throws DAOException
+	 */
+	public List<Product> getAllByStatus(Boolean status) throws DAOException;
+	
+	
 
 	/**
-	 * Returns list of Products wich price lower than specified price value;
+	 * Returns list of Products wich price lower than specified price value.
 	 * 
 	 * @param price
 	 * @return null if no products match to argument.
@@ -51,7 +63,7 @@ public interface ProductDAO extends GenericDAO<Product> {
 
 	/**
 	 * Returns list of Products wich price lower and equals to specified price
-	 * value;
+	 * value.
 	 * 
 	 * @param price
 	 * @return null if no products match to argument.
@@ -60,7 +72,7 @@ public interface ProductDAO extends GenericDAO<Product> {
 	public List<Product> getLowerAndEquals(BigDecimal price) throws DAOException;
 
 	/**
-	 * Returns list of Products wich price greater than specified price value;
+	 * Returns list of Products wich price greater than specified price value.
 	 * 
 	 * @param price
 	 * @return null if no products match to argument.
@@ -88,7 +100,7 @@ public interface ProductDAO extends GenericDAO<Product> {
 	public List<Product> getProductsFromOrder(Order order) throws DAOException;
 	
 	/**
-	 * Deletes product wich mathes to specified product is;
+	 * Deletes product wich mathes to specified product id.
 	 * 
 	 * @param id
 	 * @return <code>true</code> in case of success, false otherwise
@@ -97,7 +109,7 @@ public interface ProductDAO extends GenericDAO<Product> {
 	public boolean deleteById(int productID) throws DAOException;
 
 	/**
-	 * Deletes all Products wich mathes to specified product name;
+	 * Deletes all Products wich mathes to specified product name.
 	 * 
 	 * @param name
 	 * @return <code>true</code> in case of success, false otherwise
@@ -106,7 +118,7 @@ public interface ProductDAO extends GenericDAO<Product> {
 	public boolean deleteAllByName(String name) throws DAOException;
 
 	/**
-	 * Deletes all Products wich mathes to specified order owner;
+	 * Deletes all Products wich mathes to specified order owner.
 	 * 
 	 * @param price
 	 * @return <code>true</code> in case of success, false otherwise

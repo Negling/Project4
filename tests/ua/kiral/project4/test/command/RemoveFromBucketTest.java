@@ -121,7 +121,7 @@ public class RemoveFromBucketTest {
 		ses.setAttribute(getKey("userId"), 1);
 		ses.setAttribute(getKey("purchaseBucket"), testBucket);
 		container.setParameter(getKey("productToPurchaseId"), "1");
-		testBucket.putProduct(new Product(1, "mock", new BigDecimal("0.00")), 1);
+		testBucket.putProduct(new Product(1, "mock", new BigDecimal("0.00"), false), 1);
 
 		/*
 		 * if bucket contains one element, after executing command content path
@@ -142,8 +142,8 @@ public class RemoveFromBucketTest {
 		ses.setAttribute(getKey("userId"), 1);
 		ses.setAttribute(getKey("purchaseBucket"), testBucket);
 		container.setParameter(getKey("productToPurchaseId"), "1");
-		testBucket.putProduct(new Product(1, "mock", new BigDecimal("0.00")), 1);
-		testBucket.putProduct(new Product(2, "mock", new BigDecimal("0.00")), 1);
+		testBucket.putProduct(new Product(1, "mock", new BigDecimal("0.00"), false), 1);
+		testBucket.putProduct(new Product(2, "mock", new BigDecimal("0.00"), false), 1);
 
 		/*
 		 * bucket contains two different products, after removing command, one

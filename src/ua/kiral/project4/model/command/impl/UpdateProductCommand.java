@@ -59,8 +59,10 @@ public class UpdateProductCommand extends Command {
 
 				BigDecimal newPrice = new BigDecimal(container.getParameter(getKey("productToUpdatePrice")))
 						.setScale(2,RoundingMode.HALF_EVEN);
+				Boolean newStatus = Boolean.parseBoolean(container.getParameter(getKey("productToUpdateStatus")));
+				
 				updated = new Product(oldValue.getId(), container.getParameter(getKey("productToUpdateName")),
-						newPrice);
+						newPrice, newStatus);
 				
 				// updating product
 				if (productDAO.update(oldValue, updated)) {

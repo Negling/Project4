@@ -44,7 +44,7 @@ public class LoginCommand extends Command {
 			ProductDAO productDAO = DAOfactory.getProductDAO();
 			UserDAO userDAO = DAOfactory.getUserDAO();
 			OrderDAO orderDAO = DAOfactory.getOrderDAO();
-			List<Product> products = productDAO.getAll();
+			List<Product> products = productDAO.getAllByStatus(false);
 			String login = container.getParameter(getKey("userLogin"));
 			String password = container.getParameter(getKey("userPass"));
 

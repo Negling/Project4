@@ -29,7 +29,7 @@ public class AddProductTest {
 
 	@BeforeClass
 	public static void beforeClass() {
-		testProduct = new Product(-1, "mock", new BigDecimal("0.00"));
+		testProduct = new Product(-1, "mock", new BigDecimal("0.00"), false);
 
 		/*
 		 * expected request values

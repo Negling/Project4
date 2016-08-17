@@ -65,6 +65,19 @@ public class MySQLProductDAO extends MySQLBaseDAO<Product> implements ProductDAO
 	}
 
 	@Override
+	public List<Product> getAllByStatus(Boolean status) throws DAOException {
+		try (Connection connection = getConnection();
+				PreparedStatement statement = connection.prepareStatement(getSelectSQLWithKey("removed ="))) {
+
+			statement.setBoolean(1, status);
+			return super.getListByQuerry(statement);
+
+		} catch (SQLException cause) {
+			throw new DAOException(cause);
+		}
+	}
+
+	@Override
 	public List<Product> getLower(BigDecimal price) throws DAOException {
 		try (Connection connection = getConnection();
 				PreparedStatement statement = connection.prepareStatement(getSelectSQLWithKey("price <"))) {
@@ -131,7 +144,7 @@ public class MySQLProductDAO extends MySQLBaseDAO<Product> implements ProductDAO
 
 	@Override
 	public boolean deleteById(int productID) throws DAOException {
-		return super.delete(new Product(productID, "", new BigDecimal(0)));
+		return super.delete(new Product(productID, "", new BigDecimal(0), false));
 	}
 
 	@Override
@@ -190,6 +203,7 @@ public class MySQLProductDAO extends MySQLBaseDAO<Product> implements ProductDAO
 			updateStatement.setString(1, newEntity.getName());
 			updateStatement.setBigDecimal(2, newEntity.getPrice());
 			updateStatement.setInt(3, oldEntity.getId());
+			updateStatement.setBoolean(4, oldEntity.getRemoved());
 		} catch (SQLException cause) {
 			throw new DAOException(cause);
 		}
@@ -207,7 +221,7 @@ public class MySQLProductDAO extends MySQLBaseDAO<Product> implements ProductDAO
 	@Override
 	protected Product parseEntity(ResultSet rs) throws DAOException {
 		try {
-			return new Product(rs.getInt(1), rs.getString(2), rs.getBigDecimal(3));
+			return new Product(rs.getInt(1), rs.getString(2), rs.getBigDecimal(3), rs.getBoolean(3));
 		} catch (SQLException cause) {
 			throw new DAOException(cause);
 		}

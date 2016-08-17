@@ -89,7 +89,7 @@ public class UpdateProductTest {
 		HttpSession ses = container.getSession();
 		List<Product> products = new ArrayList<>();
 
-		products.add(new Product(1, "mock", new BigDecimal("0.00")));
+		products.add(new Product(1, "mock", new BigDecimal("0.00"), false));
 		ses.setAttribute(getKey("productsList"), products);
 		container.setParameter(getKey("productCoreUpdateId"), "1");
 		container.setParameter(getKey("productToUpdatePrice"), "0.00");

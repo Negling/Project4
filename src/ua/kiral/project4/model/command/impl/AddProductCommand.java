@@ -55,7 +55,7 @@ public class AddProductCommand extends Command {
 			BigDecimal newPrice = new BigDecimal(productPrice).setScale(2, RoundingMode.HALF_EVEN);
 
 			// creating instance of new product
-			Product updated = new Product(null, productName, newPrice);
+			Product updated = new Product(null, productName, newPrice, false);
 
 			if (productDAO.create(updated)) {
 

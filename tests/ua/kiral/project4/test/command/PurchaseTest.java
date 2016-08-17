@@ -30,7 +30,7 @@ public class PurchaseTest {
 	public static void beforeClass() {
 		container = new MockRequestContainer(new HashMap<>(), new HashMap<>(), new HashMap<>());
 		command = new PurchaseCommand(MockDAOFactory.getInstance(), new MockValidator());
-		testProduct = new Product(1, "mock", new BigDecimal("0.00"));
+		testProduct = new Product(1, "mock", new BigDecimal("0.00"), false);
 	}
 
 	@AfterClass

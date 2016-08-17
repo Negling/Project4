@@ -41,11 +41,11 @@ public class MockProductDAO implements ProductDAO {
 	@Override
 	public Product getProductByID(int productId) throws DAOException {
 		if (productId < 0)
-			return new Product(-1, "mock", new BigDecimal(0.00));
+			return new Product(-1, "mock", new BigDecimal(0.00), false);
 		else if (productId == 0)
 			return null;
 		else
-			return new Product(1, "mock", new BigDecimal(0.00));
+			return new Product(1, "mock", new BigDecimal(0.00), false);
 	}
 
 	@Override
@@ -61,6 +61,11 @@ public class MockProductDAO implements ProductDAO {
 	@Override
 	public List<Product> getAllByName(String name) throws DAOException {
 		return name == null ? null : new ArrayList<>();
+	}
+
+	@Override
+	public List<Product> getAllByStatus(Boolean status) throws DAOException {
+		return status == null ? null : new ArrayList<>();
 	}
 
 	@Override

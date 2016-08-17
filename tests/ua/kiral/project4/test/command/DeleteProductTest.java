@@ -20,12 +20,12 @@ import org.junit.Test;
 import ua.kiral.project4.mock.dao.MockDAOFactory;
 import ua.kiral.project4.mock.request.MockRequestContainer;
 import ua.kiral.project4.mock.validator.MockValidator;
-import ua.kiral.project4.model.command.impl.DeleteProductCommand;
+import ua.kiral.project4.model.command.impl.RemoveProductCommand;
 import ua.kiral.project4.model.entity.Product;
 
 public class DeleteProductTest {
 	private static Product testInstance;
-	private static DeleteProductCommand command;
+	private static RemoveProductCommand command;
 	private static MockRequestContainer container;
 
 	@BeforeClass
@@ -33,12 +33,12 @@ public class DeleteProductTest {
 		List<Product> mockList = new ArrayList<>();
 		Map<String, String> requestParams = new HashMap<>();
 		
-		testInstance = new Product(1, "mock", new BigDecimal(0.00));
+		testInstance = new Product(1, "mock", new BigDecimal(0.00), false);
 		mockList.add(testInstance);
 		requestParams.put(getKey("productCoreUpdateId"), testInstance.getId().toString());
 
 		container = new MockRequestContainer(requestParams, new HashMap<>(), null);
-		command = new DeleteProductCommand(MockDAOFactory.getInstance(), new MockValidator());
+		command = new RemoveProductCommand(MockDAOFactory.getInstance(), new MockValidator());
 	}
 
 	@AfterClass

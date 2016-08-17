@@ -107,7 +107,7 @@ public class AddProductToBucketTest {
 	public void notEmptyBucketTest() {
 		Bucket testBucket = new Bucket();
 		HttpSession ses = container.getSession();
-		testBucket.putProduct(new Product(-1, "mock", new BigDecimal("0.00")), 1);
+		testBucket.putProduct(new Product(-1, "mock", new BigDecimal("0.00"), false), 1);
 		ses.setAttribute(getKey("userId"), 1);
 		ses.setAttribute(getKey("purchaseBucket"), testBucket);
 		container.setParameter(getKey("productToPurchaseId"), "1");
